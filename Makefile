@@ -6,7 +6,7 @@
 #    By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/17 16:07:39 by agrimald          #+#    #+#              #
-#    Updated: 2024/10/15 18:30:16 by ojimenez         ###   ########.fr        #
+#    Updated: 2024/10/28 15:53:13 by agrimald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CPP = c++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98 -fsanitize=address -I./inc -I./inc/commands -I./src -I./src/commands
 RM = rm -rf
 CYAN = \033[96m
+GREEN = \33[92m
+YELLOW = \033[93m
 MAGENTA = \033[35m
 RED = \033[91m
 END_COLOR = \033[0m
@@ -26,12 +28,7 @@ SRC = main.cpp src/Message.cpp src/Client.cpp src/Server.cpp src/Channel.cpp src
 		src/commands/Part.cpp src/commands/Mode.cpp src/commands/Who.cpp
 		
 
-INC = inc/Message.hpp inc/Client.hpp inc/Server.hpp inc/Channel.hpp inc/Utils.hpp \
-		inc/commands/Commad.hpp inc/commands/Join.hpp inc/commands/Kick.hpp \
-		inc/commands/Quit.hpp inc/commands/Pass.hpp inc/commands/Nick.hpp \
-		inc/commands/ClasString.hpp src/commands/Privmsg.hpp src/commands/Topic.hpp \
-		inc/commands/Invite.hpp inc/commands/Part.hpp inc/commands/Mode.hpp inc/commands/Who.hpp
-		
+INC = inc/Channel.hpp inc/Client.hpp inc/Message.hpp inc/Server.hpp inc/Utils.hpp inc/commands/ClasString.hpp inc/commands/Invite.hpp inc/commands/Kick.hpp inc/commands/Nick.hpp inc/commands/Pass.hpp inc/commands/Quit.hpp inc/commands/Who.hpp inc/commands/Command.hpp inc/commands/Join.hpp inc/commands/Mode.hpp inc/commands/Part.hpp inc/commands/Privmsg.hpp inc/commands/Topic.hpp
 
 OBJECTS = $(SRC:.cpp=.o)
 
@@ -39,28 +36,91 @@ all: banner $(NAME)
 
 banner:
 	@echo  "$(MAGENTA)\n"
-	@echo  "     ▒▒▄▀▀▀▀▀▄▒▒▒▒▒▄▄▄▄▄▒▒▒     ::::::::::: :::::::::   :::::::: "
-	@echo  "     ▒▐░▄░░░▄░▌▒▒▄█▄█▄█▄█▄▒         :+:     :+:    :+: :+:    :+: "
-	@echo  "     ▒▐░▀▀░▀▀░▌▒▒▒▒▒░░░▒▒▒▒         +:+     +:+    +:+ +:+        "
-	@echo  "     ▒▒▀▄░═░▄▀▒▒▒▒▒▒░░░▒▒▒▒         +#+     +#++:++#:  +#+        "
-	@echo  "     ▒▒▐░▀▄▀░▌▒▒▒▒▒▒░░░▒▒▒▒         +#+     +#+    +#+ +#+        "
-	@echo  "                                    #+#     #+#    #+# #+#    #+# "
-	@echo  "                                ########### ###    ###  ######## "
+	@echo  "                 ▄▄                                "
+	@echo  "               ▄▄█▀▀▀███▀▀▀▄▄▄                     "
+	@echo  "           ▄▄▀▀▄▄▄▄▄▄▄▄▄██▄▄  ████▀▀               "
+	@echo  "         ▄▀    ▀█▄    ▀██▀   ▀██▄▄▀▄▄              "
+	@echo  "       ▄▀         ▀▀▀▀▀▀      ▀▄ ▀████             "
+	@echo  "      ▄▀      ▄█ ▄▄▄▄▀▀▀▀▀▀▀▄▄▄ ▀▀▀▀▀ █▄           "
+	@echo  "     ▄▀        █▄       ▀▀▀▀▄▄▄▀█▄     █           "
+	@echo  "     █                         ▀ ▀█     █          "
+	@echo  "     █                            ▀█    █          "
+	@echo  "     ▀▄                                ▄█          "
+	@echo  "      █▄                               █           "
+	@echo  "       ▀▄                             █            "
+	@echo  "        ▀█▄                         ▄▀             "
+	@echo  "           ▀▄▄                   ▄▄▀               "
+	@echo  "              ▀▀▄▄▄         ▄▄▄▀▀                  "
+	@echo  "                   ▀▀▀▀▀█▀▀▀                       "
+	@echo  "                       █████                       "
+	@echo  "                      █ █   ██                     "
+	@echo  "                     █  ██    █                    "
+	@echo  "                    █    ██    █                   "
+	@echo  "                   █      ██    ██                 "
+	@echo  "                ▄██        ██    █▄                "
+	@echo  "                ▄█          ██    █▄               "
+	@echo  "                            ██                     "
 	@echo "\n$(END_COLOR)"
 
+banner_fclean:
+	@echo "$(GREEN)\n"
+	@echo "                      ██████                         "
+	@echo "                   ███      ███                      "
+	@echo "                  █            █                     "
+	@echo "                ██              ██                   "
+	@echo "                █                ██                  "
+	@echo "               █                  █                  "
+	@echo "              █                    █                 "
+	@echo "              ██████   ██████       █                "
+	@echo "             █ ███      ████        █                "
+	@echo "             █ ███      ████        █                "
+	@echo "               ███      ████         █               "
+	@echo "            █  ███      ███        ███               "
+	@echo "            █                       ██               "
+	@echo "            █            ████        █               "
+	@echo "            █          ███████       █               "
+	@echo "             █       ██████████       █              "
+	@echo "             █      ████████████     █               "
+	@echo "             █     ██████████  █     █               "
+	@echo "              █       ███████ █  █ ██                "
+	@echo "              █                   ██                 "
+	@echo "               █                  █                  "
+	@echo "                █                █                   "
+	@echo "                 █              ██                   "
+	@echo "       ██         ██           ████    ████████      "
+	@echo "       █████        ██      ███   ██████████████     "
+	@echo "         ███████        ██       █████               "
+	@echo "            █████████        █████████████           "
+	@echo "                 █████████████████   ██  ██████      "
+	@echo "                                 █    █       ██     "
+	@echo "                                 █    ██     █       "
+	@echo "                                 █     █     █ █     "
+	@echo "                                 █     ██    █ █     "
+	@echo "                            ██████ █   ██    █ █     "
+	@echo "                         ████    █████ ██    ███     "
+	@echo "                 █████████      ████████████████     "
+	@echo "        █████████████████████████████████    █ █     "
+	@echo "      ████████          █  ██████  ███████   █ █     "
+	@echo "                         █        █     ████ █ █     "
+	@echo "                          █      █        ████ █     "
+	@echo "                           ██████           ████     "
+	@echo "\n$(END_COLOR)"
+
+
 $(NAME): $(OBJECTS)
-		 @echo "$(CYAN)\n𝑻𝒉𝒆 𝒇𝒂𝒃𝒖𝒍𝒐𝒖𝒔 𝑰𝑹𝑪 𝒊𝒔 𝒄𝒐𝒎𝒑𝒊𝒍𝒆𝒅!!!\n$(END_COLOR)"
-		 $(CPP) $(CPPFLAGS) -o $@ $^
+		 @printf "$(CYAN)\n\nThe IRC is compiled!!!\n$(END_COLOR)\n"
+		 @$(CPP) $(CPPFLAGS) -o $@ $^
 
-%.o: %.cpp $(INC) Makefile
-		 $(CPP) $(CPPFLAGS) -c $< -o $@
+%.o: %.cpp $(INC)
+		@printf "$(YELLOW)Generating IRC objects... %-33.33s \r$(END_COLOR)" $@
+		@$(CPP) $(CPPFLAGS) -c $< -o $@
 
-fclean:  banner clean
+fclean:  banner_fclean clean
 		 $(RM) $(NAME) $(OBJECTS)
 
-clean:   banner
-		 @echo "$(RED)\n𝐼𝑅𝐶 𝐷𝑒𝑙𝑒𝑡𝑒 :𝑐!!!\n$(END_COLOR)"
-		 $(RM) $(OBJECTS)
+clean:   
+		 @printf "$(RED)\nIRC DELETE :c!!!\n$(END_COLOR)\n"
+		 @$(RM) $(OBJECTS)
 
 re: clean fclean all
 
