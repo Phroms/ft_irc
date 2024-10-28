@@ -6,7 +6,7 @@
 #    By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/17 16:07:39 by agrimald          #+#    #+#              #
-#    Updated: 2024/10/28 15:53:13 by agrimald         ###   ########.fr        #
+#    Updated: 2024/10/28 16:31:07 by agrimald         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,24 @@ MAGENTA = \033[35m
 RED = \033[91m
 END_COLOR = \033[0m
 
-SRC = main.cpp src/Message.cpp src/Client.cpp src/Server.cpp src/Channel.cpp src/Utils.cpp \
-		src/commands/Pass.cpp src/commands/Quit.cpp src/commands/Nick.cpp \
-		src/commands/Join.cpp src/commands/Kick.cpp src/commands/ClasString.cpp \
-		src/commands/Privmsg.cpp src/commands/Topic.cpp src/commands/Invite.cpp \
-		src/commands/Part.cpp src/commands/Mode.cpp src/commands/Who.cpp
+SRC = main.cpp src/Message.cpp src/Client.cpp \
+	  src/Server.cpp src/Channel.cpp src/Utils.cpp \
+	  src/commands/Pass.cpp src/commands/Quit.cpp \
+	  src/commands/Nick.cpp src/commands/Join.cpp \
+	  src/commands/Kick.cpp src/commands/ClasString.cpp \
+	  src/commands/Privmsg.cpp src/commands/Topic.cpp \
+	  src/commands/Invite.cpp src/commands/Part.cpp \
+	  src/commands/Mode.cpp src/commands/Who.cpp
 		
 
-INC = inc/Channel.hpp inc/Client.hpp inc/Message.hpp inc/Server.hpp inc/Utils.hpp inc/commands/ClasString.hpp inc/commands/Invite.hpp inc/commands/Kick.hpp inc/commands/Nick.hpp inc/commands/Pass.hpp inc/commands/Quit.hpp inc/commands/Who.hpp inc/commands/Command.hpp inc/commands/Join.hpp inc/commands/Mode.hpp inc/commands/Part.hpp inc/commands/Privmsg.hpp inc/commands/Topic.hpp
+INC = inc/Channel.hpp inc/Client.hpp inc/Message.hpp \
+	  inc/Server.hpp inc/Utils.hpp inc/commands/ClasString.hpp \
+	  inc/commands/Invite.hpp inc/commands/Kick.hpp \
+	  inc/commands/Nick.hpp inc/commands/Pass.hpp \
+	  inc/commands/Quit.hpp inc/commands/Who.hpp \
+	  inc/commands/Command.hpp inc/commands/Join.hpp \
+	  inc/commands/Mode.hpp inc/commands/Part.hpp \
+	  inc/commands/Privmsg.hpp inc/commands/Topic.hpp
 
 OBJECTS = $(SRC:.cpp=.o)
 
