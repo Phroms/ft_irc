@@ -6,7 +6,7 @@
 /*   By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:08:06 by ojimenez          #+#    #+#             */
-/*   Updated: 2024/10/16 14:10:45 by ojimenez         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:57:53 by ojimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,18 @@ std::string Channel::getTopic() const
 void Channel::setTopic(std::string topic)
 {
 	this->topic = topic;
+}
+
+void Channel::updateClientNick(const std::string &oldNick, const std::string &newNick)
+{
+	for (size_t i = 0; i < clients.size(); i++)
+	{
+		if (clients[i].getNickname() == oldNick)
+		{
+			 clients[i].setNickname(newNick);
+			 break;
+		}
+	}
 }
 
 Client* Channel::getClientByName(const std::string &nickname)

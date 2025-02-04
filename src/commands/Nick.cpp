@@ -6,7 +6,7 @@
 /*   By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:20:14 by ojimenez          #+#    #+#             */
-/*   Updated: 2024/10/01 15:25:39 by ojimenez         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:54:05 by ojimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ static void updateNick(Server &s, Client &c, std::vector<std::string> args)
 	for (size_t i = 0; i < clients.size(); i++)
 	{
 		s.message.sendMessage(clients[i], message);
+	}
+	std::vector<std::string> channelsNames = c.getJoinedChannels();
+	for (size_t i = 0; i < channelsNames.size(); i++)
+	{
+		Channel *chan = s.getChannel(channelsNames.at(i));
+		chan->updateClientNick(oldNick, newNick);
 	}
 }
 

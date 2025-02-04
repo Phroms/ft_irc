@@ -6,7 +6,7 @@
 /*   By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:07:00 by ojimenez          #+#    #+#             */
-/*   Updated: 2024/10/16 11:57:57 by ojimenez         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:48:16 by ojimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ class Channel
 		std::string getUserList();
 		bool getTopicRestricted() const;
 		void serTopicRestricted(bool t);
+		void updateClientNick(const std::string &oldnick, const std::string &newNick);
 		
 		/* ANTHONY ↓: */
 

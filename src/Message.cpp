@@ -6,7 +6,7 @@
 /*   By: ojimenez <ojimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 17:01:10 by agrimald          #+#    #+#             */
-/*   Updated: 2024/10/16 16:39:18 by ojimenez         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:19:31 by ojimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define ERR_NONICKNAMEGIVEN 431
 # define ERR_ERRONEUSNICKNAME 432
 # define ERR_UNKNOWNCOMMAND 421
+# define ERR_KEYSET 467
 
 // Codigos especificos para KICK y otros comandos
 
@@ -37,6 +38,7 @@
 # define ERR_USERNOTINCHANNEL 441
 # define ERR_BADCHANNELKEY 475
 # define ERR_CHANNELISFULL 471
+# define ERR_UNKNOWNMODE 472
 # define ERR_INVITEONLYCHAN 473
 
 // Codigos especificos para el Mode
@@ -141,6 +143,12 @@ std::string Message::getMessage(int code, Client &client, std::string &cmd) cons
 			return ":" + serverName + " 482 " + nickName + " " + cmd + " :You are not channel operator\r\n";
 		case ERR_NOTONCHANNEL:
 			return ":" + serverName + " 442 " + nickName + " " + cmd + " :You're not on taht channel\r\n";
+		case ERR_UNKNOWNMODE:
+			return ":" + serverName + " 472 " + nickName + " " + cmd + " :is unknown mode char to me\r\n";
+		case ERR_KEYSET:
+			return ":" + serverName + " 467 " + nickName + " " + cmd + " :Key already set\r\n";
+		case ERR_NOSUCHNICK:
+			return ":" + serverName + " 401 " + nickName + " " + cmd + " :No such nick/channel\r\n";
 		default:
 			return "NO RESPONSE FOUND";
 	}
